@@ -2,17 +2,17 @@ class IntcodeComputer
 	def compute(intcode)
 		i = 0
 		loop do
-			action = intcode[i]
+			opcode = intcode[i]
 
-			break if action == 99
+			break if opcode == 99
 			
-			intcode[intcode[i+3]] = intcode[intcode[i+1]] + intcode[intcode[i+2]] if action == 1
+			intcode[intcode[i+3]] = intcode[intcode[i+1]] + intcode[intcode[i+2]] if opcode == 1
 			
-			intcode[intcode[i+3]] = intcode[intcode[i+1]] * intcode[intcode[i+2]] if action == 2
+			intcode[intcode[i+3]] = intcode[intcode[i+1]] * intcode[intcode[i+2]] if opcode == 2
 
 			i += 4
 		end
 
-		return intcode
+		intcode
 	end
 end
