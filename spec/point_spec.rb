@@ -32,7 +32,19 @@ describe Point do
       ].each do |point_1, point_2, expected|
         expect(point_1.manhattan_distance(point_2)).to eq expected
       end
-	    end
+    end
 	end
+end
 
+describe "points_from_instructions" do
+  subject { points_from_instructions }
+
+  it " pointes from instructions" do
+    expect(points_from_instructions(['R4'])).to eql [
+      Point.new(1, 0),
+      Point.new(2, 0),
+      Point.new(3, 0),
+      Point.new(4, 0)
+    ]
+  end
 end
