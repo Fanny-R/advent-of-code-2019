@@ -14,6 +14,10 @@ class Point
 	 @x == other.x and @y == other.y
 	end
 
+	def hash
+	 [@x, @y].hash
+	end
+
 	def to_s
 		"x: #{@x} y:#{@y}"
 	end
