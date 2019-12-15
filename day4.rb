@@ -1,11 +1,11 @@
 def is_valid(password)
   digits = password.split('').map(&:to_i)
 
-  has_adjacent_digits = false
+  adjacent_digits = [1]
 
   digits.each_with_index do |digit, index|
     if digits.length() - 1 < index + 1 
-      return has_adjacent_digits
+      return adjacent_digits.include?(2)
     end
 
   	if digit > digits[index + 1]
@@ -13,7 +13,9 @@ def is_valid(password)
   	end
 
   	if digit == digits[index + 1]
-  	  has_adjacent_digits = true
+	  adjacent_digits[-1] = adjacent_digits[-1] + 1
+  	else
+	  adjacent_digits.push(1)
   	end
   end
 end
