@@ -24,7 +24,7 @@ class Point
 end
 
 def points_from_instructions (wire)
-	points = []
+	points = [Point.new(0,0)]
 	current_position = Point.new(0,0)
 
 	wire.each do |instruction| 

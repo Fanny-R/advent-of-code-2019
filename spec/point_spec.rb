@@ -41,6 +41,7 @@ describe "points_from_instructions" do
 
   it " pointes from instructions" do
     expect(points_from_instructions(['R4'])).to eql [
+      Point.new(0, 0),
       Point.new(1, 0),
       Point.new(2, 0),
       Point.new(3, 0),

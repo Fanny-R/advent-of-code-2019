@@ -13,18 +13,21 @@ def main_day3
 
 	commons = wires[0] & wires[1]
 
- 	start = Point.new(0,0)
- 	closest = start.manhattan_distance(commons[0])
+	distances1 = commons.map do |common|
+		common.manhattan_distance(Point.new(0,0))
+	end
 
-	commons.each do |common|
-		distance = start.manhattan_distance(common)
-		closest = distance if distance < closest
+	distances2 = commons.map do |common|
+		wire_1_index = wires[0].index { |x| x.eql? common }
+		wire_2_index = wires[1].index { |x| x.eql? common }
+
+		wire_1_index + wire_2_index if wire_1_index and wire_2_index
 	end
 
 	puts "*********"  
-	puts "Part 1: " + closest.to_s
+	puts "Part 1: " + distances1.select { |x| !x.eql? Point.new(0,0) }.min.to_s
 	puts "***"
-	puts "Part 2: "
+	puts "Part 2: " + distances2.compact.min.to_s
 	puts "*********"
 end
 
