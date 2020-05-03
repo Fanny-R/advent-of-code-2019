@@ -33,9 +33,28 @@ class IntcodeComputer
 				next
 			end
 
+			if opcode == 5
+				jump_if_true(parameters)
+				next
+			end
+
+			if opcode == 6
+				jump_if_false(parameters)
+				next
+			end
+
+			if opcode == 7
+				less_than(parameters)
+				next
+			end
+
+			if opcode == 8
+				equals(parameters)
+				next
+			end
+
 			puts 'Unknown opcode ' + opcode.to_s
 			exit
-
 		end
 
 		@intcode
@@ -69,6 +88,46 @@ class IntcodeComputer
 		puts("Output: " + get_values_from_parameters(parameters)[0].to_s)
 
 		@i += 2
+	end
+
+	def jump_if_true(parameters)
+		values = get_values_from_parameters(parameters)
+		if values[0] != 0
+			@i = values[1]
+		else
+			@i += 3
+		end
+	end
+
+	def jump_if_false(parameters)
+		values = get_values_from_parameters(parameters)
+		if values[0] == 0
+			@i = values[1]
+		else
+			@i += 3
+		end
+	end
+
+	def less_than(parameters)
+		values = get_values_from_parameters(parameters)
+
+		if values[0] < values[1]
+			@intcode[@intcode[@i+3]] = 1
+		else
+			@intcode[@intcode[@i+3]] = 0
+		end
+		@i += 4
+	end
+
+	def equals(parameters)
+		values = get_values_from_parameters(parameters)
+
+		if values[0] == values[1]
+			@intcode[@intcode[@i+3]] = 1
+		else
+			@intcode[@intcode[@i+3]] = 0
+		end
+		@i += 4
 	end
 
 	def get_values_from_parameters(parameters)
