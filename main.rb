@@ -1,3 +1,8 @@
 require_relative 'intcode_computer.rb'
 
-IntcodeComputer.new.compute([3,0,4,0,99])
+
+file = File.open("inputs/day5")
+
+intcode = file.read.split(",").map(&:to_i)
+
+IntcodeComputer.new.compute(intcode)
