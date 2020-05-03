@@ -38,7 +38,8 @@ class IntcodeComputer
 			end
 
 			if opcode == 4
-				puts("Output: " + intcode[intcode[i+1]].to_s)
+				value = parameters[0] == 1 ? intcode[i+1] : intcode[intcode[i+1]]
+				puts("Output: " + value.to_s)
 
 				i += 2
 				next
