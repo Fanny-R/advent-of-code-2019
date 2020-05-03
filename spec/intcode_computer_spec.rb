@@ -3,7 +3,7 @@ require_relative '../intcode_computer.rb'
 describe IntcodeComputer do
   subject { described_class.new }
 
-  describe "compute" do
+  describe "compute day 2" do
     it "computes" do
       [
         [
@@ -29,6 +29,17 @@ describe IntcodeComputer do
       ].each do |intcode, expected|
         expect(subject.compute(intcode)).to eq expected
       end
+    end
+  end
+
+  describe "compute day 5" do
+    it "computes the input" do
+      allow(subject).to receive(:gets).and_return("1")
+
+      input = File.open("spec/input_day5").read.split(",").map(&:to_i)
+      output = File.open("spec/output_day5").read.split(",").map(&:to_i)
+
+      expect(subject.compute(input)).to eq output
     end
   end
 end
