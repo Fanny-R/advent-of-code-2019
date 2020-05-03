@@ -1,11 +1,12 @@
 class IntcodeComputer
 	@intcode
+	@i
 
 	def compute(intcode)
 		@intcode = intcode
-		i = 0
+		@i = 0
 		loop do
-			instructions = @intcode[i].to_s.chars.map(&:to_i)
+			instructions = @intcode[@i].to_s.chars.map(&:to_i)
 
 			opcode = instructions.pop(2).join().to_i
 			parameters = instructions.reverse
@@ -13,22 +14,22 @@ class IntcodeComputer
 			break if opcode == 99
 			
 			if opcode == 1
-				i = add(i, parameters)
+				add(parameters)
 				next
 			end
 
 			if opcode == 2
-				i = multiply(i, parameters)
+				multiply(parameters)
 				next
 			end
 
 			if opcode == 3
-				i = input(i)
+				input
 				next
 			end
 
 			if opcode == 4
-				i = output(i, parameters)
+				output(parameters)
 				next
 			end
 
@@ -40,35 +41,36 @@ class IntcodeComputer
 		@intcode
 	end
 
-	def add(i, parameters)
-		val1 = parameters[0] == 1 ? @intcode[i+1] : @intcode[@intcode[i+1]]
-		val2 = parameters[1] == 1 ? @intcode[i+2] : @intcode[@intcode[i+2]]
+	private
+	def add(parameters)
+		val1 = parameters[0] == 1 ? @intcode[@i+1] : @intcode[@intcode[@i+1]]
+		val2 = parameters[1] == 1 ? @intcode[@i+2] : @intcode[@intcode[@i+2]]
 
-		@intcode[@intcode[i+3]] = val1 + val2
+		@intcode[@intcode[@i+3]] = val1 + val2
 
-		i += 4
+		@i += 4
 	end
 
-	def multiply(i, parameters)
-		val1 = parameters[0] == 1 ? @intcode[i+1] : @intcode[@intcode[i+1]]
-		val2 = parameters[1] == 1 ? @intcode[i+2] : @intcode[@intcode[i+2]]
+	def multiply(parameters)
+		val1 = parameters[0] == 1 ? @intcode[@i+1] : @intcode[@intcode[@i+1]]
+		val2 = parameters[1] == 1 ? @intcode[@i+2] : @intcode[@intcode[@i+2]]
 
-		@intcode[@intcode[i+3]] = val1 * val2
+		@intcode[@intcode[@i+3]] = val1 * val2
 
-		i += 4
+		@i += 4
 	end
 
-	def input(i)
+	def input
 		puts("Input : ")
-		@intcode[@intcode[i+1]] = gets.chomp.to_i
+		@intcode[@intcode[@i+1]] = gets.chomp.to_i
 
-		i += 2
+		@i += 2
 	end
 
-	def output(i, parameters)
-		value = parameters[0] == 1 ? @intcode[i+1] : @intcode[@intcode[i+1]]
+	def output(parameters)
+		value = parameters[0] == 1 ? @intcode[@i+1] : @intcode[@intcode[@i+1]]
 		puts("Output: " + value.to_s)
 
-		i += 2
+		@i += 2
 	end
 end
