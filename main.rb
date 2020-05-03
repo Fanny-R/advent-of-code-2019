@@ -1,5 +1,3 @@
-require_relative './day4.rb'
+require_relative 'intcode_computer.rb'
 
-results =  valid_passwords(235741, 706948)
-
-puts "Found #{results.compact.length} possible passwords"
+IntcodeComputer.new.compute([3,0,4,0,99])
