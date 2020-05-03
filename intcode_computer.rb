@@ -43,19 +43,17 @@ class IntcodeComputer
 
 	private
 	def add(parameters)
-		val1 = parameters[0] == 1 ? @intcode[@i+1] : @intcode[@intcode[@i+1]]
-		val2 = parameters[1] == 1 ? @intcode[@i+2] : @intcode[@intcode[@i+2]]
+		values = get_values_from_parameters(parameters)
 
-		@intcode[@intcode[@i+3]] = val1 + val2
+		@intcode[@intcode[@i+3]] = values[0] + values[1]
 
 		@i += 4
 	end
 
 	def multiply(parameters)
-		val1 = parameters[0] == 1 ? @intcode[@i+1] : @intcode[@intcode[@i+1]]
-		val2 = parameters[1] == 1 ? @intcode[@i+2] : @intcode[@intcode[@i+2]]
+		values = get_values_from_parameters(parameters)
 
-		@intcode[@intcode[@i+3]] = val1 * val2
+		@intcode[@intcode[@i+3]] = values[0] * values[1]
 
 		@i += 4
 	end
@@ -68,9 +66,15 @@ class IntcodeComputer
 	end
 
 	def output(parameters)
-		value = parameters[0] == 1 ? @intcode[@i+1] : @intcode[@intcode[@i+1]]
-		puts("Output: " + value.to_s)
+		puts("Output: " + get_values_from_parameters(parameters)[0].to_s)
 
 		@i += 2
+	end
+
+	def get_values_from_parameters(parameters)
+		[
+			parameters[0] == 1 ? @intcode[@i+1] : @intcode[@intcode[@i+1]],
+			parameters[1] == 1 ? @intcode[@i+2] : @intcode[@intcode[@i+2]]
+		]
 	end
 end
